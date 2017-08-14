@@ -68,7 +68,7 @@
     <div align="center">
 
         <p>Hello Sharon,here we are!<b>Brace yourself!</b></p>
-        
+
     </div>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))

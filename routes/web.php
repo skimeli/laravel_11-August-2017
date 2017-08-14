@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/items', 'ItemController@index')->name('items.index');
+Route::get('/items/create', 'ItemController@create')->name('items.create');
+Route::post('/items', 'ItemController@store')->name('items.store');
+Route::get('/items/{id}', 'ItemController@show')->name('items.show');
+Route::get('/items/{id}/edit', 'ItemController@show')->name('items.edit');
+Route::put('/items/{id}', 'ItemController@update')->name('items.update');
+Route::delete('/items/{id}', 'ItemController@destroy')->name('items.destroy');
