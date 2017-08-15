@@ -29,6 +29,15 @@
             </div>
         </div>
 
+
+
+        <div class="department">
+            @foreach <$item->department as $department>
+                <article>
+                    {{$department->body}}
+                </article>
+                @endforeach
+        </div>
     </div>
 
 @endsection

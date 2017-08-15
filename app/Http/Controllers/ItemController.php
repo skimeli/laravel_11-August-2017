@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Item;
+use Illuminate\Support\Facades\Mail;
 
 class ItemController extends Controller
 {
@@ -34,12 +35,6 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -47,17 +42,19 @@ class ItemController extends Controller
             'description' => 'required',
         ]);
 
-        Item::create($request->all());
+        $items = Item::create($request->all());
+
+
+        Mail::send('email.email', ['title' => 'New item Added', 'items' => $items], function ($items)
+        {
+            $items->from('shazkim51@gmail.com', 'sharon');
+            $items->to('skimeli@cytonn.com');
+        });
+
         return redirect()->route('items.index')
-            ->with('success','Item created successfully');
+            ->with('success', 'Item created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $item = Item::find($id);
@@ -73,8 +70,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::find($id);
-        print_r($item);
-        exit;
+        
         return view('items.edit',compact('item'));
     }
 

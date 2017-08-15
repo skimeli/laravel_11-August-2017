@@ -13,4 +13,9 @@ class Item extends Model
 
     public $fillable = ['title','description'];
 
+    public function Department(){
+
+        return $this->hasmany(Department::class);
+    }
+
 }
