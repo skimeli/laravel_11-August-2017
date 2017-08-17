@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Item;
 use Illuminate\Support\Facades\Mail;
+use log;
 
 class ItemController extends Controller
 {
@@ -51,8 +52,10 @@ class ItemController extends Controller
             $items->to('skimeli@cytonn.com');
         });
 
+        \Illuminate\Support\Facades\Log::info('Test');
+
         return redirect()->route('items.index')
-            ->with('success', 'Item created successfully');
+          ->with('success', 'Item created successfully');
     }
 
     public function show($id)
@@ -70,17 +73,11 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::find($id);
-        
+      exit;
         return view('items.edit',compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
